@@ -1,0 +1,141 @@
+# 🏛️ Offline Law Finder & Penalty Calculator
+
+A comprehensive Java application to search Indian laws and calculate penalties based on violations.
+
+## 📚 Features
+
+✅ **Search Laws by Keyword** - Find laws quickly using keywords  
+✅ **Browse by Category** - Explore laws organized by type  
+✅ **Calculate Penalties** - Compute penalties with repeat offense tracking  
+✅ **Query History** - Keep track of your searches  
+✅ **View All Laws** - Browse complete law database  
+
+## 📖 Law Categories Included
+
+1. **Traffic Laws** (Motor Vehicles Act, 1988)
+   - Overspeeding, Rash Driving, Negligent Driving, etc.
+
+2. **Cyber Laws** (Information Technology Act, 2000)
+   - Hacking, Obscene Content, Breach of Confidentiality, etc.
+
+3. **Criminal Laws** (Indian Penal Code)
+   - Murder, Theft, Cheating, Criminal Intimidation, etc.
+
+4. **Labor Laws** (Industrial Relations Code, 2020)
+   - Strikes, Lockouts, Child Labor, etc.
+
+5. **Environmental Laws**
+   - Air/Water Pollution, Wildlife Violations, etc.
+
+## 🚀 How to Run
+
+### Compile:
+```bash
+javac Law.java TrafficLaw.java CyberLaw.java CriminalLaw.java LaborLaw.java EnvironmentalLaw.java LawDatabase.java LawFinder.java Main_LawFinder.java
+```
+
+### Run:
+```bash
+java Main_LawFinder
+```
+
+## 📝 Java Topics Covered
+
+| Topic | Module | Usage |
+|-------|--------|-------|
+| **Strings & Regex** | LawFinder | Keyword matching |
+| **Control Statements** | LawFinder | Menu navigation |
+| **Exception Handling** | LawDatabase | Custom exceptions |
+| **File Handling** | LawDatabase | (Future: Save history) |
+| **Collections** | LawDatabase | HashMap, ArrayList, HashSet |
+| **OOP (Classes)** | Law.java | Base law class |
+| **Inheritance** | TrafficLaw, etc. | Extend Law class |
+| **Polymorphism** | calculatePenalty() | Different penalty logic per law type |
+| **Streams & Lambda** | LawDatabase | Search and filtering |
+
+## 🔍 Example Keywords to Search
+
+- **Traffic**: overspeeding, rash_driving, driving_without_license
+- **Cyber**: hacking, obscene_content, unauthorized_access
+- **Criminal**: murder, theft, cheating_fraud
+- **Labor**: child_labor, unauthorized_strike
+- **Environment**: air_pollution, wildlife_violation
+
+## 💡 Features in Action
+
+### Search Law
+```
+Enter keyword: overspeeding
+✅ Found 1 matching law(s):
+[1] Section 183
+    Description: Overspeeding or dangerous driving
+    Basic Fine: ₹1000
+    Punishment: Fine up to ₹5000 or imprisonment up to 3 months
+```
+
+### Calculate Penalty
+```
+Enter law keyword: overspeeding
+Enter repeat offenses: 2
+💰 PENALTY CALCULATION
+Section: Section 183
+Total Penalty: ₹2000 (with 50% increase per repeat offense)
+```
+
+## 🛠️ Class Structure
+
+```
+Law (abstract base class)
+├── TrafficLaw
+├── CyberLaw
+├── CriminalLaw
+├── LaborLaw
+└── EnvironmentalLaw
+
+LawDatabase (Static law storage)
+├── initializeLaws()
+├── searchLaws()
+├── getLawsByCategory()
+└── getAllKeywords()
+
+LawFinder (User Interface)
+├── searchLawByKeyword()
+├── browseLawsByCategory()
+├── calculatePenalty()
+└── viewQueryHistory()
+```
+
+## 🔮 Future Enhancements
+
+- 📊 Add more laws (currently 24 core laws, can expand to 100+)
+- 💾 Save query history to file using FileWriter
+- 🔐 Add JDBC integration with SQLite/MySQL for persistent storage
+- 🖥️ Create GUI using Swing or JavaFX
+- ⚡ Implement multithreading for large searches
+- 🌐 Add REST API using Spring Boot
+
+## 📋 Currently Included Laws
+
+**Total: 24 Laws** across 5 categories
+
+- Traffic Laws: 5
+- Cyber Laws: 4
+- Criminal Laws: 6
+- Labor Laws: 4
+- Environmental Laws: 4
+
+*Ready to expand with more Indian laws!*
+
+## 👨‍💻 Author Notes
+
+This is a **learning project** designed to teach:
+- ✅ Object-Oriented Programming (OOP)
+- ✅ Exception Handling
+- ✅ Collections Framework
+- ✅ Polymorphism & Inheritance
+- ✅ File I/O operations
+- ✅ Java 8+ Features (Lambdas, Streams)
+
+---
+
+**Happy Learning! 🎓**x 
