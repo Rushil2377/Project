@@ -231,19 +231,36 @@ public class LawFinderGUI extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        inputPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel mainInputPanel = new JPanel(new BorderLayout(10, 10));
+        
+        JPanel topPanel = new JPanel(new BorderLayout(10, 10));
+        topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        inputPanel.add(new JLabel("Enter law keyword:"));
-        JTextField keywordField = new JTextField();
-        inputPanel.add(keywordField);
+        JPanel keywordPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        keywordPanel.add(new JLabel("Enter law keyword:"));
+        JTextField keywordField = new JTextField(20);
+        keywordPanel.add(keywordField);
 
-        inputPanel.add(new JLabel("Repeat offenses (0 for first time):"));
+        JPanel offensePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        offensePanel.add(new JLabel("Repeat offenses (0 for first time):"));
         JSpinner offenseSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-        inputPanel.add(offenseSpinner);
+        offensePanel.add(offenseSpinner);
 
         JButton calculateBtn = new JButton("Calculate Penalty");
-        inputPanel.add(calculateBtn);
+        offensePanel.add(calculateBtn);
+
+        topPanel.add(keywordPanel, BorderLayout.NORTH);
+        topPanel.add(offensePanel, BorderLayout.CENTER);
+
+        JPanel suggestionsPanel = new JPanel();
+        suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
+        suggestionsPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        JScrollPane suggestionsScroll = new JScrollPane(suggestionsPanel);
+        suggestionsScroll.setPreferredSize(new Dimension(400, 120));
+        suggestionsScroll.setBorder(BorderFactory.createTitledBorder("Suggestions"));
+
+        List<String> allKeywords = LawDatabase.getAllKeywords();
 
         JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
@@ -251,7 +268,52 @@ public class LawFinderGUI extends JFrame {
         resultArea.setLineWrap(true);
         resultArea.setWrapStyleWord(true);
 
-        JScrollPane scrollPane = new JScrollPane(resultArea);
+        JScrollPane resultScroll = new JScrollPane(resultArea);
+
+        keywordField.getDocument().addDocumentListener(new DocumentListener() {
+            private void updateSuggestions() {
+                String text = keywordField.getText().toLowerCase().trim();
+                suggestionsPanel.removeAll();
+
+                if (!text.isEmpty()) {
+                    for (String keyword : allKeywords) {
+                        if (keyword.toLowerCase().contains(text)) {
+                            JButton suggestionBtn = new JButton(keyword);
+                            suggestionBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+                            suggestionBtn.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    keywordField.setText(keyword);
+                                }
+                            });
+                            suggestionsPanel.add(suggestionBtn);
+                            suggestionsPanel.add(Box.createVerticalStrut(3));
+                        }
+                    }
+                }
+
+                suggestionsPanel.revalidate();
+                suggestionsPanel.repaint();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateSuggestions();
+            }
+        });
+
+        mainInputPanel.add(topPanel, BorderLayout.NORTH);
+        mainInputPanel.add(suggestionsScroll, BorderLayout.CENTER);
 
         calculateBtn.addActionListener(new ActionListener() {
             @Override
@@ -265,15 +327,16 @@ public class LawFinderGUI extends JFrame {
 
                     StringBuilder sb = new StringBuilder();
                     sb.append("💰 PENALTY CALCULATION\n");
-                    sb.append("========================\n");
+                    sb.append("════════════════════════════════════════\n");
                     sb.append("Law Section: ").append(law.getSection()).append("\n");
                     sb.append("Violation: ").append(law.getDescription()).append("\n");
+                    sb.append("Category: ").append(law.getCategory()).append("\n");
                     sb.append("Basic Fine: ₹").append(law.getBasicFine()).append("\n");
                     sb.append("Repeat Offenses: ").append(repeatOffenses).append("\n");
-                    sb.append("------------------------\n");
+                    sb.append("────────────────────────────────────────\n");
                     sb.append("Total Penalty: ₹").append(penalty).append("\n");
                     sb.append("Punishment: ").append(law.getPunishment()).append("\n");
-                    sb.append("========================\n");
+                    sb.append("════════════════════════════════════════\n");
 
                     resultArea.setText(sb.toString());
                     queryHistory.add("Calculated penalty for: " + law.getSection() + " (₹" + penalty + ")");
@@ -285,8 +348,9 @@ public class LawFinderGUI extends JFrame {
             }
         });
 
-        panel.add(inputPanel, BorderLayout.NORTH);
-        panel.add(scrollPane, BorderLayout.CENTER);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, mainInputPanel, resultScroll);
+        splitPane.setDividerLocation(220);
+        panel.add(splitPane, BorderLayout.CENTER);
         return panel;
     }
 

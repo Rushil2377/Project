@@ -8,7 +8,7 @@ public class TaxLaw extends Law {
     public int calculatePenalty(int repeatOffenseCount) {
         int penalty = basicFine;
         if (repeatOffenseCount > 0) {
-            penalty += (basicFine * repeatOffenseCount * 2.0);
+            penalty += (basicFine * repeatOffenseCount * 0.8);
         }
         return penalty;
     }

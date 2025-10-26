@@ -27,14 +27,28 @@ public class LawDatabase {
                 "Fine up to ₹5000 or imprisonment up to 3 months");
         TrafficLaw tl4 = new TrafficLaw("Section 184", "Driving without license", 500, "Fine up to ₹5000");
         TrafficLaw tl5 = new TrafficLaw("Section 191", "Failure to notify accident", 1000, "Fine up to ₹1000");
+        TrafficLaw tl6 = new TrafficLaw("Section 129", "Riding without helmet", 1000, "Fine up to ₹1500");
+        TrafficLaw tl7 = new TrafficLaw("Section 130", "Riding without PUC (Pollution Under Control)", 2000, 
+                "Fine up to ₹10,000 or vehicle seized");
+        TrafficLaw tl8 = new TrafficLaw("Section 186", "Driving without RC Book (Registration Certificate)", 1500, 
+                "Fine up to ₹5000 or imprisonment up to 3 months");
+        TrafficLaw tl9 = new TrafficLaw("Section 192", "Using vehicle without third-party insurance", 2500, 
+                "Fine up to ₹2000 and 3 months imprisonment");
+        TrafficLaw tl10 = new TrafficLaw("Section 199", "Driving under influence of alcohol", 10000, 
+                "Fine up to ₹10,000 or imprisonment up to 6 months");
 
         addLaw("overspeeding", tl3);
         addLaw("rash_driving", tl1);
         addLaw("negligent_driving", tl2);
         addLaw("driving_without_license", tl4);
         addLaw("accident_not_reported", tl5);
+        addLaw("riding_without_helmet", tl6);
+        addLaw("without_puc", tl7);
+        addLaw("without_rc_book", tl8);
+        addLaw("without_insurance", tl9);
+        addLaw("drunk_driving", tl10);
 
-        allLaws.addAll(Arrays.asList(tl1, tl2, tl3, tl4, tl5));
+        allLaws.addAll(Arrays.asList(tl1, tl2, tl3, tl4, tl5, tl6, tl7, tl8, tl9, tl10));
 
         // CYBER LAWS (Information Technology Act, 2000)
         CyberLaw cl1 = new CyberLaw("Section 66", "Hacking or unauthorized access to computer", 50000,
@@ -104,6 +118,63 @@ public class LawDatabase {
         addLaw("illegal_tree_cutting", el4);
 
         allLaws.addAll(Arrays.asList(el1, el2, el3, el4));
+
+        // TAX LAWS (Income Tax Act, GST Act, Custom Laws)
+        TaxLaw txl1 = new TaxLaw("Section 271", "Tax evasion or incorrect return filing", 25000,
+                "Fine up to 3 times of tax involved or imprisonment up to 7 years");
+        TaxLaw txl2 = new TaxLaw("Section 276CC", "Gross amount of income concealed", 50000,
+                "Fine up to 50% of tax and imprisonment up to 2 years");
+        TaxLaw txl3 = new TaxLaw("Section 132", "GST tax invasion/evasion", 30000,
+                "Fine up to ₹2.5 lakhs and imprisonment up to 5 years");
+        TaxLaw txl4 = new TaxLaw("Section 114", "Customs duty evasion", 40000,
+                "Fine equal to customs duty and confiscation of goods");
+        TaxLaw txl5 = new TaxLaw("Section 112", "Non-filing of income tax return", 5000,
+                "Fine up to ₹10,000");
+
+        addLaw("tax_evasion", txl1);
+        addLaw("income_concealment", txl2);
+        addLaw("gst_evasion", txl3);
+        addLaw("customs_evasion", txl4);
+        addLaw("non_filing_return", txl5);
+
+        allLaws.addAll(Arrays.asList(txl1, txl2, txl3, txl4, txl5));
+
+        // SEXUAL CRIME LAWS (Indian Penal Code)
+        SexualCrimeLaw scl1 = new SexualCrimeLaw("Section 375", "Rape", 100000,
+                "Rigorous imprisonment up to 7 years or life imprisonment");
+        SexualCrimeLaw scl2 = new SexualCrimeLaw("Section 376", "Sexual assault", 50000,
+                "Imprisonment up to 5 years or fine up to ₹3000");
+        SexualCrimeLaw scl3 = new SexualCrimeLaw("Section 354", "Outraging modesty of a woman", 15000,
+                "Imprisonment up to 3 years or fine up to ₹2000");
+        SexualCrimeLaw scl4 = new SexualCrimeLaw("Section 509", "Displaying lewd conduct in public", 8000,
+                "Imprisonment up to 3 months or fine up to ₹500");
+
+        addLaw("rape", scl1);
+        addLaw("sexual_assault", scl2);
+        addLaw("outraging_modesty", scl3);
+        addLaw("lewd_conduct", scl4);
+
+        allLaws.addAll(Arrays.asList(scl1, scl2, scl3, scl4));
+
+        // PROPERTY LAWS (Indian Penal Code)
+        PropertyLaw pl1 = new PropertyLaw("Section 379", "Theft", 1000,
+                "Imprisonment up to 3 years or fine up to ₹250");
+        PropertyLaw pl2 = new PropertyLaw("Section 380", "Burglary or housebreaking", 5000,
+                "Imprisonment up to 10 years or fine");
+        PropertyLaw pl3 = new PropertyLaw("Section 405", "Criminal breach of trust", 10000,
+                "Imprisonment up to 7 years or fine");
+        PropertyLaw pl4 = new PropertyLaw("Section 425", "Mischief or causing damage to property", 3000,
+                "Imprisonment up to 3 months or fine up to ₹250");
+        PropertyLaw pl5 = new PropertyLaw("Section 427", "Mischief with explosive or fire", 15000,
+                "Imprisonment up to 6 months or fine up to ₹1000");
+
+        addLaw("theft", pl1);
+        addLaw("burglary", pl2);
+        addLaw("breach_of_trust", pl3);
+        addLaw("property_damage", pl4);
+        addLaw("damage_with_fire", pl5);
+
+        allLaws.addAll(Arrays.asList(pl1, pl2, pl3, pl4, pl5));
     }
 
     private static void addLaw(String keyword, Law law) {
